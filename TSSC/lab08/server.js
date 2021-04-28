@@ -150,4 +150,8 @@ function runServer(error) {
 process.on('SIGINT', function() {
   console.log("Caught interrupt signal, quitting...");
   process.exit();
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> b1bb91fa36489f3fc202e78e1d9026ecbfb5b434
