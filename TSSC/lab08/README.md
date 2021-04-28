@@ -52,7 +52,7 @@ Comment:  username este string care se evalueaza la true:
  Mesajele scrise in chenarul din server sunt interpretate ca HTML. 
  Orice script e bagat in HTML si executat. Asadar, mesajul contine:
  
-```json
+```jsp
  <script>
  alert("Arafat!");
  </script> 
@@ -62,7 +62,7 @@ Comment:  username este string care se evalueaza la true:
 	Cerinta 4
 
  Form al guestbook-ului:
- ```json
+ ```jsp
 <form method="post" action="/guestbook/post">
   <p>
     <div><label for="message">Message:</label></div>
@@ -75,7 +75,7 @@ Comment:  username este string care se evalueaza la true:
 ```
 
  L-am refactorizat local:
- ```json
+ ```jsp
 <form method="post" action="http://localhost:8080/guestbook/post">
   <p>
     <label>Boss:</label>
