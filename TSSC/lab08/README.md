@@ -58,8 +58,9 @@ Comment:  username este string care se evalueaza la true:
  </script> 
 ```
 -  genereaza un "dialog box" in care scrie "Arafat!"
-
+```
 	Cerinta 4
+```
 
  Form al guestbook-ului:
  ```jsp
